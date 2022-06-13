@@ -1,0 +1,62 @@
+wget https://raw.githubusercontent.com/HackBio-Internship/wale-home-tasks/main/DNA.fa
+
+#Question1
+#bash code for counting number of DNA sequence
+grep -c "^>" DNA.fa 
+
+
+#Question 2
+# bash code for counting total occurrence of A,G,T,C
+grep -o -E'A|T|G|C|-' DNA.fa | sort | uniq -c
+
+
+ Question3
+Setting up a conda environment
+wget https://repo.anaconda.com/miniconda/Miniconda3-py38_4.12.0-Linux-x86_64.sh
+chmod +x Miniconda3-py38_4.12.0-Linux-x86_64.sh
+./Miniconda3-py38_4.12.0-Linux-x86_64.sh
+conda activate base
+
+
+
+Installing fastqc, spades and fastp
+conda install -c bioconda fastqc
+conda install -c bioconda spades
+conda install -c bioconda fastp
+
+
+Downloading >2 datasets
+wget https://github.com/josoga2/yt-dataset/blob/main/dataset/raw_reads/Baxter_R1.fastq.gz?raw=true -O Baxter_R1.fastq.gz
+wget https://github.com/josoga2/yt-dataset/blob/main/dataset/raw_reads/Baxter_R2.fastq.gz?raw=true -O Baxter_R1.fastq.gz
+wget https://github.com/josoga2/yt-dataset/blob/main/dataset/raw_reads/Drysdale_R1.fastq.gz?raw=true/ -O Drysdale_R1.fastq.gz
+wget https://github.com/josoga2/yt-dataset/blob/main/dataset/raw_reads/Drysdale_R2.fastq.gz?raw=true/ -O Drysdale_R2.fastq.gz
+
+
+#creating a folder 'output'
+mkdir output
+
+
+#implementing fastqc on the datasets for quality control
+fastqc *.fastq.gz -O output/
+# running fastp on dadtasets and saving the output as html file 
+SAMPLES
+"Drysdale"
+"Baxter"
+)
+
+for SAMPLE in "${SAMPLES[@]}"; do
+
+fastp \
+        -i "$PWD/${SAMPLE)_R1.fastq.gz" \
+        -I "$PWD/${SAMPLE)_R2.fastq.gz" \
+        -o "output/${SAMPLE}_R1.fastq.gz" \
+        -O "output/${SAMPLE}_R2.fastq.gz" \
+        --html "output/${SAMPLE}_fastp.html"
+done
+# running spades on the datasets and sending the report file into the output older 
+spades.py -1 Alsen_R1.fastq.gz -2 Alsen_R2.fastq.gz --careful --cov-cutoff auto -o output
+spades.py -1 ACBarrie_R1.fastq.gz -2 ACBarrie_R2.fastq.gz --careful --cov-cutoff auto -o output
+spades.py -1 Chara_R1.fastq.gz -2 Chara_R2.fastq.gz --careful --cov-cutoff auto -o output
+
+
+
